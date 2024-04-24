@@ -11,6 +11,9 @@ import { MenuModule } from './menu/menu.module';
 import { LocationModule } from './location/location.module';
 import { LogisticModule } from './logistic/logistic.module';
 import { ReportModule } from './report/report.module';
+import { SeedService } from './seed/seed.service';
+import { SeedModule } from './seed/seed.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -33,7 +36,9 @@ import { ReportModule } from './report/report.module';
   MenuModule, 
   LocationModule, 
   LogisticModule, 
-  ReportModule,
+  ReportModule, 
+  SeedModule,
+  AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

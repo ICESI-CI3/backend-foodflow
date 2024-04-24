@@ -10,6 +10,7 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcryptjs from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { v4 as UUID } from 'uuid';
 
 @Injectable()
 export class AuthService {
@@ -19,26 +20,29 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto) {
-    const user = await this.userService.findOneByID(registerDto.id);
+    const user = await this.userService.findOneByID(registerDto.email);
 
     if (user) {
       throw new BadRequestException('User already exists');
     }
 
     return await this.userService.create({
+      id: UUID(),
       ...registerDto,
       password: bcryptjs.hashSync(registerDto.password, 10),
     });
   }
 
-  async login(loginDto: LoginDto) {
-    const user = await this.userService.findOneByID(loginDto.id);
+  async login(userId: any, loginDto: LoginDto) {
+    const user = await this.userService.findOneByID(userId);
 
     if (!user) {
       throw new UnauthorizedException(
-        `The user with the ID ${loginDto.id} does not exist`,
+        `The user with the ID ${userId} does not exist`,
       );
     }
+
+    console.log(user)
 
     const isPasswordValid = bcryptjs.compareSync(
       loginDto.password,

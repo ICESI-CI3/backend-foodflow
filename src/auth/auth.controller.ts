@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -8,17 +8,17 @@ import { AuthGuard } from './guard/auth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('register')
+  @Post('/register')
   register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
   }
 
-  @Post('login')
-  login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
+  @Post('/login/:id')
+  login(@Param('id') userId: any, @Body() loginDto: LoginDto) {
+    return this.authService.login(userId, loginDto);
   }
 
-  @Get('profile')
+  @Get('/profile')
   @UseGuards(AuthGuard)
   profile(
     @Request()

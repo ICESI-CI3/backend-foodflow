@@ -22,7 +22,7 @@ const options: DataSourceOptions & SeederOptions = {
   logging: true,
   synchronize: false,
   migrationsRun: false,
-  migrations: ['../migrations/*.ts'],
+  migrations: ['./database/migrations/*.ts'],
   migrationsTableName: 'migrations',
 
 }
