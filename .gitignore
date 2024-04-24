@@ -4,6 +4,7 @@
 /build
 /pgadmin4-data
 /postgres-data
+/database/migrations
 
 # Logs
 logs
