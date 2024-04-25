@@ -14,6 +14,7 @@ import { ReportModule } from './report/report.module';
 import { SeedService } from './seed/seed.service';
 import { SeedModule } from './seed/seed.module';
 import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { AuthModule } from './auth/auth.module';
   ReportModule, 
   SeedModule,
   AuthModule,
+  UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -3,9 +3,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Put, ParseUUIDPipe, 
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { AddIngredientProductDto } from 'src/ingredients/dto/add-ingredient-product.dto';
 import { AddDeleteProductIngredientDto } from './dto/add_delete_product-ingredient.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 import { RoleProtected } from 'src/auth/decorators/role-protected.decorator';
 import { UserRoleGuard } from 'src/auth/guard/user-role.guard';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
@@ -16,7 +15,7 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.admin, ValidRoles.superUser)
   findAll() {
 
@@ -25,7 +24,7 @@ export class ProductController {
   }
 
   @Get('/getOne/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.admin, ValidRoles.superUser)
   findOne(@Param('id') id: any) {
 
@@ -34,7 +33,7 @@ export class ProductController {
   }
 
   @Post('/create')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.admin, ValidRoles.superUser)
   create(@Body() createProductDto: CreateProductDto) {
 
@@ -43,7 +42,7 @@ export class ProductController {
   }
 
   @Put('/update/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.admin, ValidRoles.superUser)
   update(@Param('id') id: any, @Body() updateProductDto: UpdateProductDto) {
 
@@ -52,7 +51,7 @@ export class ProductController {
   }
 
   @Put('/addIngredient/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.admin, ValidRoles.superUser)
   addIngredient(@Param('id') productId: any, @Body() ingredientNames: AddDeleteProductIngredientDto) {
 
@@ -61,7 +60,7 @@ export class ProductController {
   }
 
   @Put('/deleteIngredient/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.admin, ValidRoles.superUser)
   deleteIngredient(@Param('id') productId: any, @Body() ingredientNames: AddDeleteProductIngredientDto) {
 
@@ -70,7 +69,7 @@ export class ProductController {
   }
 
   @Delete('/delete/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.admin, ValidRoles.superUser)
   remove(@Param('id') id: any) {
 

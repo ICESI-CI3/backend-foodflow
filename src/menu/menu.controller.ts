@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { MenuService } from './menu.service';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 import { RoleProtected } from 'src/auth/decorators/role-protected.decorator';
 import { UserRoleGuard } from 'src/auth/guard/user-role.guard';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
@@ -12,7 +12,7 @@ export class MenuController {
 
     
     @Get()   
-    @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+    @UseGuards(AuthGuard, UserRoleGuard)
     @RoleProtected(ValidRoles.mesero, ValidRoles.chef, ValidRoles.superUser)
     findAll() {
   
@@ -21,7 +21,7 @@ export class MenuController {
     }
   
     @Get('getOne/:id')
-    @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+    @UseGuards(AuthGuard, UserRoleGuard)
     @RoleProtected(ValidRoles.mesero, ValidRoles.chef, ValidRoles.superUser)
     findOne(@Param('id') id: any) {
   

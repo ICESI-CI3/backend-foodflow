@@ -14,10 +14,13 @@ import { Product } from 'src/product/entities/product.entity';
 import { ProductToIngredient } from 'src/product/entities/productToIngredient.entity';
 import { ProductService } from 'src/product/product.service';
 import { Location } from 'src/location/entities/location.entity';
+import { UsersModule } from 'src/users/users.module';
+import { UsersService } from 'src/users/users.service';
 
 @Module({
-  providers: [SeedService, ReportService, LogisticService, LocationService, OrderService, IngredientsService, ProductService],
+  imports: [TypeOrmModule.forFeature([Logistic, Location, Order, Product, ProductToIngredient, Ingredient, Product]), UsersModule],
   controllers: [SeedController],
-  imports: [TypeOrmModule.forFeature([Logistic, Location, Order, Product, ProductToIngredient, Ingredient, Product])],
+  providers: [SeedService, ReportService, LogisticService, LocationService, OrderService, IngredientsService, ProductService, UsersService],
+  exports: [SeedService]
 })
 export class SeedModule {}

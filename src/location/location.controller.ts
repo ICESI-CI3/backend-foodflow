@@ -7,10 +7,11 @@ import { IngredientsService } from 'src/ingredients/ingredients.service';
 import { UpdateIngredientDto } from 'src/ingredients/dto/update-ingredient.dto';
 import { LogisticService } from 'src/logistic/logistic.service';
 import { CreateLogisticDto } from 'src/logistic/dto/create-logistic.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 import { RoleProtected } from 'src/auth/decorators/role-protected.decorator';
 import { UserRoleGuard } from 'src/auth/guard/user-role.guard';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
+import { PassportModule } from '@nestjs/passport';
 
 @Controller('location')
 export class LocationController {
@@ -24,7 +25,7 @@ export class LocationController {
 
   //Methods of location
   @Get()
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   findAll() {
 
@@ -33,7 +34,7 @@ export class LocationController {
   }
 
   @Get('getOne/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   findOne(@Param('id') id: any) {
 
@@ -42,7 +43,7 @@ export class LocationController {
   }
 
   @Post('/create')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   create(@Body() createLocationDto: CreateLocationDto) {
 
@@ -51,7 +52,7 @@ export class LocationController {
   }
 
   @Put('update/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   update(@Param('id') id: any, @Body() updateLocationDto: UpdateLocationDto) {
 
@@ -60,7 +61,7 @@ export class LocationController {
   }
 
   @Delete('delete/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   remove(@Param('id') id: any) {
 
@@ -70,7 +71,7 @@ export class LocationController {
 
   //methods of ingredient
   @Get('ingredients')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   findAllIngredient() {
 
@@ -79,7 +80,7 @@ export class LocationController {
   }
 
   @Get('ingredient/getOne/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   findOneByIdIngredient(@Param('id') id: any) {
 
@@ -88,7 +89,7 @@ export class LocationController {
   }
 
   @Put('ingredient/update/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   updateIngredient(@Param('id') id: any, @Body() updateIngredientDto: UpdateIngredientDto) {
 
@@ -97,7 +98,7 @@ export class LocationController {
   }
 
   @Delete('ingredient/delete/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   removeIngredient(@Param('id') id: any) {
 
@@ -108,7 +109,7 @@ export class LocationController {
   //methods of logistic
 
   @Get('logistic')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   findAllLogistic() {
 
@@ -117,7 +118,7 @@ export class LocationController {
   }
 
   @Get('logistic/getOne/:id')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   findOneLogistic(@Param('id') id: any) {
 
@@ -126,7 +127,7 @@ export class LocationController {
   }
 
   @Post('logistic/create')
-  @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+  @UseGuards(AuthGuard, UserRoleGuard)
   @RoleProtected(ValidRoles.superUser, ValidRoles.admin)
   async createLogistic(@Body() createLogisticDto: CreateLogisticDto) {
 

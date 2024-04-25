@@ -20,7 +20,7 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto) {
-    const user = await this.userService.findOneByID(registerDto.email);
+    const user = await this.userService.findOne(registerDto.email);
 
     if (user) {
       throw new BadRequestException('User already exists');
@@ -33,7 +33,7 @@ export class AuthService {
     });
   }
 
-  async login(userId: any, loginDto: LoginDto) {
+  async login(userId: string, loginDto: LoginDto) {
     const user = await this.userService.findOneByID(userId);
 
     if (!user) {
@@ -41,8 +41,6 @@ export class AuthService {
         `The user with the ID ${userId} does not exist`,
       );
     }
-
-    console.log(user)
 
     const isPasswordValid = bcryptjs.compareSync(
       loginDto.password,

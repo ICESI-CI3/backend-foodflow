@@ -12,10 +12,13 @@ import { LocationService } from 'src/location/location.service';
 import { OrderService } from 'src/order/order.service';
 import { IngredientsService } from 'src/ingredients/ingredients.service';
 import { ProductToIngredient } from 'src/product/entities/productToIngredient.entity';
+import { UsersModule } from 'src/users/users.module';
+import { UsersService } from 'src/users/users.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Logistic, Location, Order, Product, ProductToIngredient, Ingredient])],
+  imports: [TypeOrmModule.forFeature([Logistic, Location, Order, Product, ProductToIngredient, Ingredient]), UsersModule],
   controllers: [ReportController],
-  providers: [ReportService, LogisticService, LocationService, OrderService, IngredientsService]
+  providers: [ReportService, LogisticService, LocationService, OrderService, IngredientsService, UsersService],
+  exports: [ReportService]
 })
 export class ReportModule {}

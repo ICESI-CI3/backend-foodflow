@@ -16,10 +16,13 @@ import { ProductService } from 'src/product/product.service';
 import { ProductToIngredient } from 'src/product/entities/productToIngredient.entity';
 import { Logistic } from 'src/logistic/entities/logistic.entity';
 import { LogisticService } from 'src/logistic/logistic.service';
+import { UsersModule } from 'src/users/users.module';
+import { UsersService } from 'src/users/users.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Location, Ingredient, Logistic])],
+  imports: [TypeOrmModule.forFeature([Location, Ingredient, Logistic]), UsersModule],
   controllers: [LocationController, IngredientsController],
-  providers: [LocationService, IngredientsService, LogisticService]
+  providers: [LocationService, IngredientsService, LogisticService, UsersService],
+  exports: [LocationService, TypeOrmModule.forFeature([Location])]
 })
 export class LocationModule {}

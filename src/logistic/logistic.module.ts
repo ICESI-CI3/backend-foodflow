@@ -15,10 +15,13 @@ import { OrderService } from 'src/order/order.service';
 import { ProductService } from 'src/product/product.service';
 import { Location } from 'src/location/entities/location.entity';
 import { LocationService } from 'src/location/location.service';
+import { UsersModule } from 'src/users/users.module';
+import { UsersService } from 'src/users/users.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Logistic, Ingredient, Location])],
+  imports: [TypeOrmModule.forFeature([Logistic, Ingredient, Location]), UsersModule],
   controllers: [LogisticController, IngredientsController,],
-  providers: [LogisticService, IngredientsService, LocationService],
+  providers: [LogisticService, IngredientsService, LocationService, UsersService],
+  exports: [LogisticService, TypeOrmModule.forFeature([Logistic])]
 })
 export class LogisticModule {}

@@ -14,7 +14,7 @@ export class AuthController {
   }
 
   @Post('/login/:id')
-  login(@Param('id') userId: any, @Body() loginDto: LoginDto) {
+  login(@Param('id') userId: string, @Body() loginDto: LoginDto) {
     return this.authService.login(userId, loginDto);
   }
 

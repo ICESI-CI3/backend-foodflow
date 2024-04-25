@@ -2,7 +2,7 @@
 import { Body, Controller, Get, UseGuards} from '@nestjs/common';
 import { ReportService } from './report.service';
 import { ReportDto } from './dto/report.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 import { RoleProtected } from 'src/auth/decorators/role-protected.decorator';
 import { UserRoleGuard } from 'src/auth/guard/user-role.guard';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles';
@@ -16,8 +16,8 @@ export class ReportController {
 
     ){}
 
-    @Get('logistic')
-    @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+    @Get('/logistic')
+    @UseGuards(AuthGuard, UserRoleGuard)
     @RoleProtected(ValidRoles.admin, ValidRoles.superUser)
     findAllLogistic(@Body() createReportDto: ReportDto) {
 
@@ -27,8 +27,8 @@ export class ReportController {
 
     }
 
-    @Get('orders')
-    @UseGuards(AuthGuard('bearer'), UserRoleGuard)
+    @Get('/orders')
+    @UseGuards(AuthGuard, UserRoleGuard)
     @RoleProtected(ValidRoles.admin, ValidRoles.superUser)
     findAllOrders(@Body() createReportDto: ReportDto) {
 
