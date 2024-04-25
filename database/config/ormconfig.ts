@@ -11,7 +11,6 @@ ConfigModule.forRoot({
 });
 
 const options: DataSourceOptions & SeederOptions = {
-
   type: 'postgres',
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT),
@@ -19,6 +18,7 @@ const options: DataSourceOptions & SeederOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   entities: ["./src/**/entities/*.entity{.ts,.js}"],
+  ssl: true,
   logging: true,
   synchronize: false,
   migrationsRun: false,
