@@ -12,8 +12,6 @@ export class SeedController {
   constructor(private readonly seedService: SeedService) {}
 
   @Post('/create')
-  @UseGuards(AuthGuard, UserRoleGuard)
-  @RoleProtected(ValidRoles.admin, ValidRoles.superUser)
   seed() {
 
     return this.seedService.seed();

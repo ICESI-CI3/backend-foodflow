@@ -18,10 +18,10 @@ const options: DataSourceOptions & SeederOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   entities: ["./src/**/entities/*.entity{.ts,.js}"],
-  ssl: true,
+  ssl: Boolean(process.env.DB_SSL),
   logging: true,
-  synchronize: false,
-  migrationsRun: false,
+  synchronize: true,
+  migrationsRun: true,
   migrations: ['./database/migrations/*.ts'],
   migrationsTableName: 'migrations',
 
